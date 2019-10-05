@@ -1,7 +1,17 @@
 <template>
-	<div>home</div>
+	<v-app>
+		<v-content>
+			<CarbonChallenges />
+			<TopList />
+		</v-content>
+	</v-app>
 </template>
 
 <script>
-export default {};
+import CarbonChallenges from '../components/CarbonChallenges';
+import TopList from '../components/TopList';
+
+export default {
+	components: { CarbonChallenges, TopList }
+};
 </script>
