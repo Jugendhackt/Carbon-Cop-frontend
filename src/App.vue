@@ -14,6 +14,7 @@
 							<v-icon>mdi-home</v-icon>
 						</v-btn>
 					</template>
+
 					<span>Home</span>
 				</v-tooltip>
 			</router-link>
@@ -33,21 +34,17 @@
 		<v-content>
 			<router-view />
 
-			<v-btn fixed fab large bottom right>
-				<v-icon>mdi-bike</v-icon>
-			</v-btn>
+			<AddRide />
 		</v-content>
 	</v-app>
 </template>
 
 <script>
+import AddRide from './components/AddRide';
+
 export default {
 	name: 'App',
-	data() {
-		return {
-			message: 'hallo'
-		};
-	}
+	components: { AddRide }
 };
 </script>
 

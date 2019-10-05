@@ -6,21 +6,21 @@
 					<v-col cols="12" sm="8" md="4">
 						<v-card class="elevation-12">
 							<v-toolbar color="primary" dark flat>
-								<v-toolbar-title>Login form</v-toolbar-title>
+								<v-toolbar-title>Register form</v-toolbar-title>
 								<div class="flex-grow-1"></div>
 							</v-toolbar>
 							<v-card-text>
 								<v-form>
 									<v-text-field
-										label="Login"
-										name="login"
+										label="Username"
+										v-model="username"
 										prepend-icon="mdi-account"
 										type="text"
 									/>
 
 									<v-text-field
 										label="Password"
-										name="password"
+										v-model="password"
 										prepend-icon="mdi-lock"
 										type="password"
 									/>
@@ -28,11 +28,11 @@
 							</v-card-text>
 							<v-card-actions>
 								<span>
-									Need an account?
-									<router-link to="register">Register</router-link>
+									Already have an account?
+									<router-link to="login">Login</router-link>
 								</span>
 								<div class="flex-grow-1"></div>
-								<v-btn color="primary">Login</v-btn>
+								<v-btn color="primary" @click="signup">Sign up</v-btn>
 							</v-card-actions>
 						</v-card>
 					</v-col>
@@ -44,7 +44,6 @@
 
 <script>
 const HOST = 'http://laptop';
-
 export default {
 	data() {
 		return { username: '', password: '' };
@@ -54,7 +53,7 @@ export default {
 			const { username, password } = this;
 
 			try {
-				const response = await fetch(`${HOST}/login`, {
+				const response = await fetch(`${HOST}/signup`, {
 					method: 'POST',
 					body: JSON.stringify({ username, password })
 				});

@@ -2,7 +2,7 @@
 	<v-container>
 		<h2>Challenges 🏆</h2>
 		<v-row>
-			<v-col cols="12" sm="6" md="3" lg="2" v-for="n in 6" :key="n">
+			<v-col cols="12" sm="6" md="3" lg="3" v-for="n in 4" :key="n">
 				<v-card outlined>
 					<v-list-item three-line>
 						<v-list-item-content>
