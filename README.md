@@ -1,4 +1,4 @@
-# co2-tracker
+# CO2-tracker
 
 ## Project setup
 ```
