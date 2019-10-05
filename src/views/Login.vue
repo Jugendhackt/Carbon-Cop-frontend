@@ -12,15 +12,15 @@
 							<v-card-text>
 								<v-form>
 									<v-text-field
-										label="Login"
-										name="login"
+										label="Username"
+										v-model="username"
 										prepend-icon="mdi-account"
 										type="text"
 									/>
 
 									<v-text-field
 										label="Password"
-										name="password"
+										v-model="password"
 										prepend-icon="mdi-lock"
 										type="password"
 									/>
@@ -32,7 +32,7 @@
 									<router-link to="register">Register</router-link>
 								</span>
 								<div class="flex-grow-1"></div>
-								<v-btn color="primary">Login</v-btn>
+								<v-btn color="primary" @click="login()">Login</v-btn>
 							</v-card-actions>
 						</v-card>
 					</v-col>
@@ -50,7 +50,7 @@ export default {
 		return { username: '', password: '' };
 	},
 	methods: {
-		async signup() {
+		async login() {
 			const { username, password } = this;
 
 			try {
