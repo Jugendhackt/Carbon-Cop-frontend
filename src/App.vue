@@ -1,28 +1,31 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
-  </div>
+	<v-app>
+		<v-app-bar app>
+			<v-toolbar-title class="headline">
+				<span>Carbon Cops</span>
+			</v-toolbar-title>
+			<v-spacer></v-spacer>
+			<router-link to="login">
+				<v-btn text @click="message = 'bar'">
+					<span class="mr-2">login</span>
+					<v-icon>mdi-open-in-new</v-icon>
+				</v-btn>
+			</router-link>
+		</v-app-bar>
+
+		<v-content>
+			<router-view />
+		</v-content>
+	</v-app>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
-
 export default {
-  name: "app",
-  components: {
-    HelloWorld
-  }
+	name: 'App',
+	data() {
+		return {
+			message: 'hallo'
+		};
+	}
 };
 </script>
-
-<style lang="scss">
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
