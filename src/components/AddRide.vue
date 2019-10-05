@@ -40,24 +40,24 @@
 								<v-radio label="Airplane" value="airplane"></v-radio>
 							</v-radio-group>
 						</v-col>
-						<v-col cols="12" sm="12" md="6">
+						<v-col cols="12" sm="12" md="5">
 							<LocationInput
-								@coords="
-									coords => {
-										from = coords;
-									}
-								"
+								@coords="coords => setCoords('from', coords)"
 								placeholder="From..."
 							/>
 						</v-col>
-						<v-col cols="12" sm="12" md="6">
+						<v-col cols="12" sm="12" md="5">
 							<LocationInput
-								@coords="
-									coords => {
-										to = coords;
-									}
-								"
+								@coords="coords => setCoords('to', coords)"
 								placeholder="To..."
+							/>
+						</v-col>
+						<v-col cols="12" sm="12" md="2">
+							<v-text-field
+								type="number"
+								v-model="distance"
+								placeholder="Distance
+							(in km)"
 							/>
 						</v-col>
 					</v-row>
@@ -66,7 +66,7 @@
 			<v-card-actions>
 				<div class="flex-grow-1"></div>
 				<v-btn color="blue darken-1" text @click="dialog = false">Close</v-btn>
-				<v-btn color="blue darken-1" text @click="dialog = false">Save</v-btn>
+				<v-btn color="blue darken-1" text @click="addRide()">Add ride...</v-btn>
 			</v-card-actions>
 		</v-card>
 	</v-dialog>
@@ -74,6 +74,8 @@
 
 <script>
 import LocationInput from './LocationInput';
+
+const HOST = 'http://laptop';
 
 export default {
 	components: { LocationInput },
@@ -88,13 +90,49 @@ export default {
 			from: {
 				lon: undefined,
 				lat: undefined
-			}
+			},
+			distance: 0
 		};
 	},
 	methods: {
+		async setCoords(from, coords) {
+			this[from] = coords;
+			if (this.to.lon && this.from.lon) {
+				const coords = `${this.from.lon},${this.from.lat};${this.to.lon},${this.to.lat}`;
+
+				const url = `https://routing.openstreetmap.de/routed-car/route/v1/driving/${coords}`;
+
+				const data = await fetch(url).then(r => r.json());
+				this.distance = (data.routes[0].distance / 1000).toFixed(2);
+			}
+		},
 		setMeans(means) {
 			this.means = means;
 			this.dialog = true;
+		},
+		async addRide() {
+			const { username, password } = this.$store.state;
+			const { distance, means: vehicle } = this;
+
+			try {
+				const response = await fetch(`${HOST}/tracks`, {
+					method: 'POST',
+					body: JSON.stringify({
+						username,
+						password,
+						distance,
+						vehicle
+					})
+				});
+
+				if (response.status === 200) {
+					this.dialog = false;
+				} else {
+					console.error(response);
+				}
+			} catch (e) {
+				console.error(e);
+			}
 		}
 	}
 };

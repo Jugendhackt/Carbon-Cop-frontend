@@ -29,14 +29,12 @@ export default {
 	},
 	methods: {
 		selectItem(item) {
-			console.log('sel', item);
-
 			this.$emit('coords', {
-				lon: item.coords[0],
-				lat: item.coords[1]
+				lat: item.coords[0],
+				lon: item.coords[1]
 			});
 		},
-		async searchPosition(q) {
+		async searchPosition() {
 			if (this.searchLoading) return;
 
 			this.searchLoading = true;
