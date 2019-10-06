@@ -43,7 +43,6 @@
 </template>
 
 <script>
-const HOST = 'http://laptop';
 export default {
 	data() {
 		return { username: '', password: '' };
@@ -53,7 +52,7 @@ export default {
 			const { username, password } = this;
 
 			try {
-				const response = await fetch(`${HOST}/signup`, {
+				const response = await fetch(`${process.env.VUE_APP_HOST}/signup`, {
 					method: 'POST',
 					body: JSON.stringify({ username, password })
 				});

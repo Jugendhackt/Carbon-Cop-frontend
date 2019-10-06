@@ -96,8 +96,6 @@
 <script>
 import LocationInput from './LocationInput';
 
-const HOST = 'http://laptop';
-
 export default {
 	components: { LocationInput },
 	data() {
@@ -137,7 +135,7 @@ export default {
 			const { distance, means: vehicle } = this;
 
 			try {
-				const response = await fetch(`${HOST}/tracks`, {
+				const response = await fetch(`${process.env.VUE_APP_HOST}/tracks`, {
 					method: 'POST',
 					body: JSON.stringify({
 						username,
