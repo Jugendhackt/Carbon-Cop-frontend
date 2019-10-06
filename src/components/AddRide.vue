@@ -147,6 +147,7 @@ export default {
 
 				if (response.status === 200) {
 					this.dialog = false;
+					this.$root.$emit('rideAdded');
 				} else {
 					console.error(response);
 				}

@@ -47,16 +47,22 @@ export default {
 			repeating: true
 		}).dataURL;
 
-		const response = await fetch(
-			`${process.env.VUE_APP_HOST}/stats?name=${this.$store.state.username}`
-		);
-		if (response.status === 200) {
-			const data = await response.json();
-			delete data.score;
-			this.meansStats = Object.keys(data).map(key => [
-				key[0].toUpperCase() + key.slice(1),
-				data[key]
-			]);
+		await this.fetchData();
+		this.$root.$on('rideAdded', () => this.fetchData());
+	},
+	methods: {
+		async fetchData() {
+			const response = await fetch(
+				`${process.env.VUE_APP_HOST}/stats?name=${this.$store.state.username}`
+			);
+			if (response.status === 200) {
+				const data = await response.json();
+				delete data.score;
+				this.meansStats = Object.keys(data).map(key => [
+					key[0].toUpperCase() + key.slice(1),
+					data[key]
+				]);
+			}
 		}
 	}
 };

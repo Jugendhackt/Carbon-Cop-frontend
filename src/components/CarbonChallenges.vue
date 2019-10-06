@@ -42,15 +42,44 @@ export default {
 		};
 	},
 	async mounted() {
-		const response = await fetch(
-			`${process.env.VUE_APP_HOST}/challenges?name=${this.$store.state.username}`
-		);
+		await this.fetchData();
+		this.$root.$on('rideAdded', () => this.fetchData());
+	},
+	methods: {
+		async fetchData() {
+			const response = await fetch(
+				`${process.env.VUE_APP_HOST}/challenges?name=${this.$store.state.username}`
+			);
 
-		if (response.status === 200) {
-			this.challenges = (await response.json()).challenges
-				.map((a, i) => ({ ...a, i }))
-				.sort(a => (a.unlocked ? 1 : -1))
-				.slice(2);
+			if (response.status === 200) {
+				const data = (await response.json()).challenges.map((a, i) => ({
+					...a,
+					i
+				}));
+
+				const firsts = { keys: [], values: [] };
+				const lasts = [];
+
+				for (const item of data) {
+					const category = item.name.split(' ')[0];
+
+					if (firsts.keys.includes(category)) {
+						lasts.push(item);
+					} else {
+						firsts.keys.push(category);
+						firsts.values.push(item);
+					}
+				}
+
+				this.challenges = [...firsts.values, ...lasts].sort((a, b) => {
+					if (a.unlocked && b.unlocked) {
+						return 0;
+					} else if (a.unlocked) {
+						return 1;
+					}
+					return -1;
+				});
+			}
 		}
 	}
 };

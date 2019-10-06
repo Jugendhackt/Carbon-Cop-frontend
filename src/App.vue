@@ -19,7 +19,16 @@
 				</v-tooltip>
 			</router-link>
 
-			<router-link to="login">
+			<v-tooltip bottom v-if="$store.state.username">
+				<template v-slot:activator="{ on }">
+					<v-btn icon v-on="on" @click="$store.commit('logout')">
+						<v-icon>mdi-logout</v-icon>
+					</v-btn>
+				</template>
+				<span>Logout</span>
+			</v-tooltip>
+
+			<router-link to="login" v-else>
 				<v-tooltip bottom>
 					<template v-slot:activator="{ on }">
 						<v-btn icon v-on="on">
@@ -42,7 +51,16 @@ import AddRide from './components/AddRide';
 
 export default {
 	name: 'App',
-	components: { AddRide }
+	components: { AddRide },
+	methods: {
+		loginLogout() {
+			if (this.$store.state.username) {
+				this.$store.commit('logout');
+			} else {
+				this.$router.push('login');
+			}
+		}
+	}
 };
 </script>
 

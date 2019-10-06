@@ -22,7 +22,7 @@
 				</v-list-item-content>
 
 				<v-list-item-avatar color="grey lighten-2">
-					{{ item.score }}
+					{{ item.score.toFixed(0) }}
 				</v-list-item-avatar>
 			</v-list-item>
 		</v-list>
@@ -37,10 +37,15 @@ export default {
 		};
 	},
 	async mounted() {
-		console.log(`${process.env.VUE_APP_HOST}/top`);
-		const response = await fetch(`${process.env.VUE_APP_HOST}/top`);
-		if (response.status === 200) {
-			this.leaderboard = (await response.json()).top;
+		await this.fetchData();
+		this.$root.$on('rideAdded', () => this.fetchData());
+	},
+	methods: {
+		async fetchData() {
+			const response = await fetch(`${process.env.VUE_APP_HOST}/top`);
+			if (response.status === 200) {
+				this.leaderboard = (await response.json()).top;
+			}
 		}
 	}
 };

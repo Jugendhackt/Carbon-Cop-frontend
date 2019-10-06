@@ -17,6 +17,10 @@ export default new Vuex.Store({
 		login(state, payload) {
 			state.username = payload.username;
 			state.password = payload.password;
+		},
+		logout(state) {
+			state.username = undefined;
+			state.password = undefined;
 		}
 	},
 	plugins: [vuexLocal.plugin]
