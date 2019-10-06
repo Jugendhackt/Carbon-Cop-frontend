@@ -3,7 +3,7 @@
 		<h2>Leaderboard</h2>
 		<v-list>
 			<v-list-item v-for="(item, i) in leaderboard" :key="item.name">
-				<v-list-item-avatar color="grey">
+				<v-list-item-avatar color="grey lighten-1">
 					{{ i + 1 }}
 				</v-list-item-avatar>
 
@@ -20,6 +20,10 @@
 						</v-chip>
 					</v-list-item-title>
 				</v-list-item-content>
+
+				<v-list-item-avatar color="grey lighten-2">
+					{{ item.score }}
+				</v-list-item-avatar>
 			</v-list-item>
 		</v-list>
 	</v-container>

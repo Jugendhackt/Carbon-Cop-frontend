@@ -1,8 +1,8 @@
 <template>
 	<v-app>
-		<v-app-bar app>
+		<v-app-bar app :dark="!$store.state.username && $route.name === 'home'">
 			<v-toolbar-title class="headline">
-				Carbon Cops
+				Low Car
 			</v-toolbar-title>
 
 			<v-spacer />
@@ -31,11 +31,9 @@
 			</router-link>
 		</v-app-bar>
 
-		<v-content>
-			<router-view />
-		</v-content>
+		<router-view />
 
-		<AddRide />
+		<AddRide v-if="$store.state.username" />
 	</v-app>
 </template>
 
@@ -48,10 +46,9 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-.v-btn--ride {
-	bottom: 0;
-	position: fixed;
-	margin: 0 0 16px 16px;
+<style lang="scss">
+html,
+body {
+	overflow: auto !important;
 }
 </style>

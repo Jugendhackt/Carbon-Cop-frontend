@@ -7,13 +7,13 @@
 				sm="6"
 				md="3"
 				lg="3"
-				v-for="(challenge, i) in challenges"
-				:key="challenge.name"
+				v-for="challenge in challenges"
+				:key="challenge.i"
 			>
 				<v-card outlined>
 					<v-list-item three-line>
 						<v-list-item-content>
-							<div class="overline mb-4">Challenge #{{ i + 1 }}</div>
+							<div class="overline mb-4">Challenge #{{ challenge.i + 1 }}</div>
 							<v-list-item-title class="headline mb-1">
 								{{ challenge.name.toUpperCase() }}
 								{{ challenge.unlocked ? '✅' : '' }}
@@ -48,6 +48,7 @@ export default {
 
 		if (response.status === 200) {
 			this.challenges = (await response.json()).challenges
+				.map((a, i) => ({ ...a, i }))
 				.sort(a => (a.unlocked ? 1 : -1))
 				.slice(2);
 		}

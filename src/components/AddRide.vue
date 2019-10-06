@@ -157,3 +157,11 @@ export default {
 	}
 };
 </script>
+
+<style lang="scss" scoped>
+.v-btn--ride {
+	bottom: 0;
+	position: fixed;
+	margin: 0 0 16px 16px;
+}
+</style>
