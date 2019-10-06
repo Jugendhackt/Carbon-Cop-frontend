@@ -5,7 +5,7 @@
 				Carbon Cops
 			</v-toolbar-title>
 
-			<v-spacer></v-spacer>
+			<v-spacer />
 
 			<router-link to="/">
 				<v-tooltip bottom>
@@ -33,9 +33,9 @@
 
 		<v-content>
 			<router-view />
-
-			<AddRide />
 		</v-content>
+
+		<AddRide />
 	</v-app>
 </template>
 
